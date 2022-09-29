@@ -6,7 +6,7 @@ use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [HomeController::class, 'show']);
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/index', [IndexController::class, 'show']);
 

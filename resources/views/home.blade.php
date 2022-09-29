@@ -15,6 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <a href="/index">Naar de index</a>
                 </div>
             </div>
         </div>
