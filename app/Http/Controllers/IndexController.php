@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
     public function show()
     {
-        $headTitle = 'Index';
+        $headTitle = 'Star Wars Parts';
 
         $starwarsParts = Starwars_part::all();
 

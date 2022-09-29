@@ -9,9 +9,9 @@
     <title>@yield('headTitle')</title>
 </head>
 <header>
-@yield('content')
+
 </header>
 <body>
-
+@yield('content')
 </body>
 </html>
