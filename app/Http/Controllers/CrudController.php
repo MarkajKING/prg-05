@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class CrudController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function show()
     {
         return view('makepart');
@@ -31,7 +36,48 @@ class CrudController extends Controller
         ]);
 
         if ($query){
-            return redirect()->action([IndexController::class, 'show']);
+            return redirect('index');
         }
+    }
+
+    public function delete($id)
+    {
+        $delete = DB::table('starwars_parts')
+            ->where('id', $id)
+            ->delete();
+        return redirect('index');
+    }
+
+    public function edit($id)
+    {
+        $row = DB::table('starwars_parts')
+            ->where('id', $id)
+            ->first();
+        $data = [
+            'info'=>$row
+        ];
+
+        return view('editpart', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'film' => 'required',
+            'description' => 'required',
+            'image' => 'nullable'
+        ]);
+
+        $updating = DB::table('starwars_parts')
+            ->where('id', $request->input('cid'))
+            ->update([
+                'title' => $request->input('title'),
+                'film'=>$request->input('film'),
+                'description'=>$request->input('description'),
+                'image'=>$request->input('image')
+            ]);
+
+        return redirect('index');
     }
 }

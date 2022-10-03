@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Starwars_part;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $headTitle = 'Star Wars Parts';
+
+        $starwarsParts = Starwars_part::all();
+
+        $auth = auth()->check();
+
+        return view('index', compact('headTitle',
+        'auth',
+        'starwarsParts'));
     }
 }

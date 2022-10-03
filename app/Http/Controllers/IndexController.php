@@ -7,14 +7,18 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+
     public function show()
     {
+        $auth = auth()->check();
+
         $headTitle = 'Star Wars Parts';
 
         $starwarsParts = Starwars_part::all();
 
         return view('index',
             compact('headTitle',
-            'starwarsParts'));
+            'starwarsParts',
+            'auth'));
     }
 }

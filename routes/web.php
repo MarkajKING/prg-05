@@ -18,6 +18,9 @@ Route::get('/about', [AboutController::class, 'show']);
 
 Route::get('/makepart', [CrudController::class, 'show']);
 Route::post('add', [CrudController::class, 'add']);
+Route::get('edit/{id}', [CrudController::class, 'edit']);
+Route::post('update', [CrudController::class, 'update'])->name('update');
+Route::get('delete/{id}', [CrudController::class, 'delete']);
 
 Auth::routes();
 
