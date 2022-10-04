@@ -4,6 +4,16 @@
 
     <h1 class="text-center">All {{$headTitle}}</h1>
 
+    <div class="container" style="margin-top: 20px; margin-bottom: 20px">
+        <div class="row">
+            <div class="col text-center">
+                <a href="{{'/makepart'}}" class="btn btn-primary">Make a new StarWars Part!</a>
+            </div>
+        </div>
+    </div>
+
+
+
     <table class="table" style="margin-left: 20px">
         <th scope="col">Title</th>
         <th scope="col">Film</th>

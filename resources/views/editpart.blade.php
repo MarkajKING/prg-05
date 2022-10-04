@@ -42,6 +42,7 @@
 
                     <div class="form-group" style="margin-top:20px">
                         <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        <button href="{{'index'}}" class="btn btn-primary btn-block" style="margin-left: 20px">Back</button>
                     </div>
                 </form>
             </div>
