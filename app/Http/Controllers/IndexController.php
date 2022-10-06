@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Starwars_part;
+use App\Models\StarwarsPart;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -14,7 +14,7 @@ class IndexController extends Controller
 
         $headTitle = 'Star Wars Parts';
 
-        $starwarsParts = Starwars_part::all();
+        $starwarsParts = StarwarsPart::all();
 
         return view('index',
             compact('headTitle',

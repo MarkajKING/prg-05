@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3" style="margin-top:20px">
                 <h2 class="text-center">Make your own StarWars Part!</h2>
-                <form action="add" method="post">
+                <form action="{{route('starwars-part.store')}}" method="post">
 
                     @csrf
 

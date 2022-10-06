@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Starwars_part;
+use App\Models\StarwarsPart;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         $headTitle = 'Star Wars Parts';
 
-        $starwarsParts = Starwars_part::all();
+        $starwarsParts = StarwarsPart::all();
 
         $auth = auth()->check();
 
