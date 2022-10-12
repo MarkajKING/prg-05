@@ -14,17 +14,23 @@ class StarwarsPartController extends Controller
         $this->middleware('auth');
     }
 
+
     public function index()
     {
+        $headTitle = 'StarWars Parts';
         $starwarsParts = StarwarsPart::all();
 
         return view('index',
-            compact('starwarsParts'));
+            compact('starwarsParts',
+            'headTitle'));
+
     }
 
     public function create()
     {
-        return view('makepart');
+        $headTitle = 'Make Starwars Part';
+        return view('makepart',
+            compact('headTitle'));
     }
 
     public function store(Request $request)
@@ -54,11 +60,12 @@ class StarwarsPartController extends Controller
     public
     function edit($id)
     {
-
+        $headTitle = 'Edit your Starwars Part';
         $starwarsPart = StarwarsPart::find($id);
 
-        return view(route('editpart'),
-            compact('starwarsPart'));
+        return view('editpart',
+            compact('starwarsPart',
+            'headTitle'));
     }
 
     public
@@ -76,12 +83,17 @@ class StarwarsPartController extends Controller
         $starwarsPart->update($request->all());
         $starwarsPart->save();
 
-        return redirect('index');
+        return redirect(route('starwars-part.index'));
     }
 
     public function show($id)
     {
+        $headTitle = 'Details';
         $starwarsPart = StarwarsPart::find($id);
+
+        return view('starwarsPartDetails',
+            compact('headTitle',
+                'starwarsPart'));
 
 
     }

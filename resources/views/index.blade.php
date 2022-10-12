@@ -1,8 +1,8 @@
 @extends('layouts/app')
-{{--@section('headTitle', $headTitle)--}}
+@section('headTitle', $headTitle)
 @section('content')
 
-{{--    <h1 class="text-center">All {{$headTitle}}</h1>--}}
+    <h1 class="text-center">All {{$headTitle}}</h1>
 
     <div class="container" style="margin-top: 20px; margin-bottom: 20px">
         <div class="row">
@@ -19,7 +19,7 @@
         <th scope="col">Film</th>
         <th scope="col">Description</th>
         <th scope="col">Image</th>
-        @if(Auth::user())
+        @if(Auth::user()->is_admin)
             <th scope="col">Actions</th>
         @endif
         @foreach($starwarsParts as $starwarsPart)
@@ -29,7 +29,7 @@
                 <td>{{$starwarsPart->description}}</td>
                 <td>{{$starwarsPart->image}}</td>
 
-                @if(Auth::user())
+                @if(Auth::user()->is_admin)
                     <td>
                         <div class="btn-group">
                             <a href="{{route('starwars-part.edit', $starwarsPart->id)}}" class="btn btn-success"

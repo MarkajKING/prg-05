@@ -1,14 +1,14 @@
 @extends('layouts/app')
+@section('headTitle', $headTitle)
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3" style="margin-top:20px">
-                <h2 class="text-center">Make your own StarWars Part!</h2>
+                <h2 class="text-center">{{$headTitle}}</h2>
                 <form action="{{route('starwars-part.update', $starwarsPart->id )}}" method="post">
                     @method('put')
 
                     @csrf
-{{--                    <input type="hidden" name="cid" value="{{$starwarsPart->id}}">--}}
                     <div class="form-group" style="margin-top:20px">
                         <label for="">Title</label>
                         <input type="text" class="form-control" name="title"

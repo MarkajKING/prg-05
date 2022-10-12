@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('film');
             $table->text('description');
             $table->text('image')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
