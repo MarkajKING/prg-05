@@ -23,9 +23,9 @@
             <a class="navbar-brand" href="{{route('starwars-part.index') }}">
                 StarWars Parts
             </a>
-{{--            <a class="navbar-brand" href="{{route('userPart.index') }}">--}}
-{{--                Your parts--}}
-{{--            </a>--}}
+            <a class="navbar-brand" href="{{route('starwars-part.create') }}">
+                Make Part
+            </a>
 
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

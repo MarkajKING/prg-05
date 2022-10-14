@@ -21,10 +21,11 @@ class StarwarsPartController extends Controller
     {
         $headTitle = 'StarWars Parts';
         $starwarsParts = StarwarsPart::all();
+        $tags = Tag::all();
 
         return view('index',
             compact('starwarsParts',
-            'headTitle'));
+                'headTitle', 'tags'));
 
     }
 
@@ -34,7 +35,7 @@ class StarwarsPartController extends Controller
         $tags = Tag::all();
         return view('makepart',
             compact('headTitle',
-            'tags'));
+                'tags'));
     }
 
     public function store(Request $request)
@@ -68,12 +69,13 @@ class StarwarsPartController extends Controller
     public function edit(StarwarsPart $starwarsPart)
     {
         $headTitle = 'Edit your Starwars Part';
-        if ($starwarsPart->user_id === Auth::id()){
+        $tags = Tag::all();
+        if ($starwarsPart->user_id === Auth::id()) {
             return view('editpart',
                 compact('starwarsPart',
-                    'headTitle'));
-        } else
-        {
+                    'headTitle',
+                    'tags'));
+        } else {
             return redirect(route('starwars-part.index'));
         }
 
@@ -85,13 +87,15 @@ class StarwarsPartController extends Controller
             'title' => 'required',
             'film' => 'required',
             'description' => 'required',
-            'image' => 'nullable'
+            'image' => 'nullable',
+            'tags' => 'required'
         ]);
 
 
         $starwarsPart = StarwarsPart::find($id);
         $starwarsPart->update($request->all());
-        $starwarsPart->save();
+
+        $starwarsPart->tags()->sync($request->input('tags'));
 
         return redirect(route('starwars-part.index'));
     }
@@ -105,6 +109,11 @@ class StarwarsPartController extends Controller
             compact('headTitle',
                 'starwarsPart'));
     }
+
+
+
+
+
 }
 
 

@@ -41,7 +41,7 @@
                         <span style="color:red">@error('image'){{ $message }} @enderror</span>
                     </div>
 
-                    @foreach($starwarsPart->tags as $tag)
+                    @foreach($tags as $tag)
                         <div class="form-check form-switch" style="margin-top: 5px;">
                             <input name="tags[]" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="{{$tag->id}}"
                                    @if(old('tags') && in_array($tag->id, old('tags'))) checked="checked"  @endif>

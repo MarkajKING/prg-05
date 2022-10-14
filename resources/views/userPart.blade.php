@@ -6,6 +6,7 @@
             <th scope="col">Film</th>
             <th scope="col">Description</th>
             <th scope="col">Image</th>
+            <th scope="col">Tags</th>
             <th scope="col">Actions</th>
         </tr>
         @foreach($parts as $part)
@@ -14,6 +15,11 @@
                 <td>{{$part->film}}</td>
                 <td>{{$part->description}}</td>
                 <td>{{$part->image}}</td>
+                <td>
+                    @foreach($part->tags as $tag)
+                        {{$tag->name}}
+                    @endforeach
+                </td>
                 <td>
                     <div class="btn-group">
                         <a href="{{route('starwars-part.edit', $part->id)}}" class="btn btn-success"

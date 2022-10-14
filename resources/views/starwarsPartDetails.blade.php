@@ -1,6 +1,7 @@
 @extends('layouts/app')
 @section('headTitle', $headTitle)
 @section('content')
+
     <div class="col-sm-6">
         <div class="card text-white bg-dark mb-3" style="margin-left: 20px">
             <div class="card-body">
