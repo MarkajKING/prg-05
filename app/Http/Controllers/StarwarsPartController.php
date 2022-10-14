@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\StarwarsPart;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StarwarsPartController extends Controller
@@ -29,21 +31,27 @@ class StarwarsPartController extends Controller
     public function create()
     {
         $headTitle = 'Make Starwars Part';
+        $tags = Tag::all();
         return view('makepart',
-            compact('headTitle'));
+            compact('headTitle',
+            'tags'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required',
             'film' => 'required',
             'description' => 'required',
-            'image' => 'nullable'
+            'image' => 'nullable',
+            'tags' => 'required'
         ]);
 
+        $data['user_id'] = Auth::user()->id;
 
-        StarwarsPart::create($request->all());
+        $starwarsPart = StarwarsPart::create($data);
+
+        $starwarsPart->tags()->attach($request->input('tags'));
 
         return redirect(route('starwars-part.index'));
 
@@ -57,19 +65,21 @@ class StarwarsPartController extends Controller
         return redirect(route('starwars-part.index'));
     }
 
-    public
-    function edit($id)
+    public function edit(StarwarsPart $starwarsPart)
     {
         $headTitle = 'Edit your Starwars Part';
-        $starwarsPart = StarwarsPart::find($id);
+        if ($starwarsPart->user_id === Auth::id()){
+            return view('editpart',
+                compact('starwarsPart',
+                    'headTitle'));
+        } else
+        {
+            return redirect(route('starwars-part.index'));
+        }
 
-        return view('editpart',
-            compact('starwarsPart',
-            'headTitle'));
     }
 
-    public
-    function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'title' => 'required',
@@ -94,8 +104,6 @@ class StarwarsPartController extends Controller
         return view('starwarsPartDetails',
             compact('headTitle',
                 'starwarsPart'));
-
-
     }
 }
 

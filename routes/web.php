@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\StarwarsPartController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\UsersViewController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +15,7 @@ Route::get('/home', [StarwarsPartController::class, 'index']);
 Route::get('/about', [AboutController::class, 'show']);
 
 Route::resource('starwars-part', StarwarsPartController::class);
+
+Route::resource('user', UserController::class);
 
 //Route::get('/usersView', [UsersViewController::class, 'index']);

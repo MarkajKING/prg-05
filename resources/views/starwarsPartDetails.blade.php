@@ -8,6 +8,11 @@
                 <p class="card-text">{{$starwarsPart->film}}</p>
                 <p class="card-text">{{$starwarsPart->description}}</p>
                 <p class="card-text">{{$starwarsPart->image}}</p>
+                @foreach($starwarsPart->tags as $tag)
+                    <p>{{$tag->name}}</p>
+                @endforeach()
+
+
                 <a href="{{route('starwars-part.index')}}" class="btn btn-primary">Back to Index</a>
             </div>
         </div>

@@ -41,6 +41,15 @@
                         <span style="color:red">@error('image'){{ $message }} @enderror</span>
                     </div>
 
+                    @foreach($starwarsPart->tags as $tag)
+                        <div class="form-check form-switch" style="margin-top: 5px;">
+                            <input name="tags[]" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="{{$tag->id}}"
+                                   @if(old('tags') && in_array($tag->id, old('tags'))) checked="checked"  @endif>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">{{$tag->name}}</label>
+                        </div>
+                    @endforeach
+                    <span style="color:red">@error('tags'){{ $message }} @enderror</span>
+
                     <div class="form-group" style="margin-top:20px">
                         <button type="submit" class="btn btn-primary btn-block">Save</button>
                         <a href="{{route('starwars-part.index')}}" class="btn btn-primary btn-block" style="margin-left: 20px">Back</a>

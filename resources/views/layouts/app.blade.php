@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="{{route('starwars-part.index') }}">
                 StarWars Parts
             </a>
-{{--            <a class="navbar-brand" href="{{route('UserPart.index') }}">--}}
+{{--            <a class="navbar-brand" href="{{route('userPart.index') }}">--}}
 {{--                Your parts--}}
 {{--            </a>--}}
 
@@ -63,6 +63,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('user.show', Auth::user()->id)}}">
+                                    Account
+                                </a>
+
+                                <a class="dropdown-item" href="{{route('user.index', Auth::user()->id)}}">
+                                    My Parts
+                                </a>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

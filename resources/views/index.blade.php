@@ -12,13 +12,12 @@
         </div>
     </div>
 
-
-
     <table class="table" style="margin-left: 20px">
         <th scope="col">Title</th>
         <th scope="col">Film</th>
         <th scope="col">Description</th>
         <th scope="col">Image</th>
+        <th scope="col">Tags</th>
         @if(Auth::user()->is_admin)
             <th scope="col">Actions</th>
         @endif
@@ -28,13 +27,23 @@
                 <td>{{$starwarsPart->film}}</td>
                 <td>{{$starwarsPart->description}}</td>
                 <td>{{$starwarsPart->image}}</td>
+                <td>
+                @foreach($starwarsPart->tags as $tag)
+                    {{$tag->name}}
+                @endforeach
+                </td>
+
+
+
+
 
                 @if(Auth::user()->is_admin)
                     <td>
                         <div class="btn-group">
                             <a href="{{route('starwars-part.edit', $starwarsPart->id)}}" class="btn btn-success"
                                style="margin-right: 20px">Edit</a>
-                            <a href="{{route('starwars-part.show', $starwarsPart->id)}}" class="btn btn-info" style="margin-right: 20px">Details</a>
+                            <a href="{{route('starwars-part.show', $starwarsPart->id)}}" class="btn btn-info"
+                               style="margin-right: 20px">Details</a>
                             <form action="{{ route('starwars-part.destroy', $starwarsPart->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
