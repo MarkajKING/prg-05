@@ -31,6 +31,16 @@
                             @method('DELETE')
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
+                        <form action="{{ route('starwars-part.enable', $part)}}" method="post" style="margin-left: 10px">
+                            @method('PATCH')
+                            @csrf
+                            @if($part->show)
+                                <button class="btn btn-light" type="submit">Remove from public</button>
+                            @else
+                                <button class="btn btn-dark" type="submit">Show on public</button>
+                            @endif
+
+                        </form>
                     </div>
                 </td>
             </tr>

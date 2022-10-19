@@ -4,6 +4,11 @@
 
     <h1 class="text-center" style="margin-bottom: 20px">All {{$headTitle}}</h1>
 
+    <span style="color:red">@if ($errorMessage != '')
+            {{$errorMessage}}
+        @else
+        @endif</span>
+
     <h3 class="text-center" style="margin-bottom: 10px">Search:</h3>
     <form method="get" action="{{route('search.index')}}">
         @csrf
@@ -16,9 +21,9 @@
     <h3 style="margin-bottom: 10px; margin-top: 30px">Filter on tags</h3>
     @foreach($tags as $tag)
         <div class="btn-group" role="group" style="margin-top: 20px">
-                <a href="{{route('search.show', $tag->name)}}" type="button"
-                   class="btn btn-outline-info">{{$tag->name}}</a>
-            </div>
+            <a href="{{route('search.show', $tag->name)}}" type="button"
+               class="btn btn-outline-info">{{$tag->name}}</a>
+        </div>
     @endforeach
 
 
@@ -29,9 +34,7 @@
         <th scope="col">Description</th>
         <th scope="col">Image</th>
         <th scope="col">Tags</th>
-        @if(Auth::user()->is_admin)
-            <th scope="col">Actions</th>
-        @endif
+        <th scope="col">Actions</th>
         @foreach($starwarsParts as $starwarsPart)
             <tr>
                 <td>{{$starwarsPart->title}}</td>
@@ -45,20 +48,21 @@
                 </td>
 
 
-                @if(Auth::user()->is_admin)
-                    <td>
-                        <div class="btn-group">
+                <td>
+                    <div class="btn-group">
+                        <a href="{{route('starwars-part.show', $starwarsPart->id)}}" class="btn btn-info"
+                           style="margin-right: 20px">Details</a>
+
+                        @if(Auth::user()->is_admin)
                             <a href="{{route('starwars-part.edit', $starwarsPart->id)}}" class="btn btn-success"
                                style="margin-right: 20px">Edit</a>
-                            <a href="{{route('starwars-part.show', $starwarsPart->id)}}" class="btn btn-info"
-                               style="margin-right: 20px">Details</a>
                             <form action="{{ route('starwars-part.destroy', $starwarsPart->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit">Delete</button>
                             </form>
-                        </div>
-                    </td>
+                    </div>
+                </td>
                 @endif
             </tr>
         @endforeach

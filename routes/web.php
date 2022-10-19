@@ -16,8 +16,10 @@ Route::get('/home', [StarwarsPartController::class, 'index']);
 Route::get('/about', [AboutController::class, 'show']);
 
 Route::resource('starwars-part', StarwarsPartController::class);
+Route::patch('starwars-part/{starwars_part}/enable', [StarwarsPartController::class, 'enable'])->name('starwars-part.enable');
 
 Route::resource('user', UserController::class);
+
 
 Route::resource('search', SearchController::class);
 

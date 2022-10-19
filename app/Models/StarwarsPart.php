@@ -17,6 +17,7 @@ class StarwarsPart extends Model
         'description',
         'image',
         'user_id',
+        'show'
     ];
 
 

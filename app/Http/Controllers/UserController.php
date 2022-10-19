@@ -31,8 +31,7 @@ class UserController extends Controller
                 'headTitle'));
     }
 
-    public
-    function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
@@ -44,5 +43,10 @@ class UserController extends Controller
         $user->update($request->all());
 
         return redirect(route('user.show', $user->id));
+    }
+
+    public function enable($id)
+    {
+        dd($id);
     }
 }

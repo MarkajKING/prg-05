@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('image')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->boolean('show')->default(0);
             $table->timestamps();
         });
     }

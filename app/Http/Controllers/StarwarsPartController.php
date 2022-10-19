@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StarwarsPart;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -16,26 +17,39 @@ class StarwarsPartController extends Controller
         $this->middleware('auth');
     }
 
-
     public function index()
     {
+        $restNumber = 3 - Auth::user()->count;
+
+        if (Auth::user()->count >= 3) {
+            $errorMessage = '';
+        } else {
+            $errorMessage = "Bekijk nog {$restNumber} keer de detail pagina voordat je een Starwars Part kan maken";
+        }
+
         $headTitle = 'StarWars Parts';
-        $starwarsParts = StarwarsPart::all();
+        $starwarsParts = StarwarsPart::where('show', '=', '1')->get();
         $tags = Tag::all();
 
         return view('index',
             compact('starwarsParts',
-                'headTitle', 'tags'));
+                'headTitle', 'tags', 'errorMessage'));
 
     }
 
     public function create()
     {
-        $headTitle = 'Make Starwars Part';
-        $tags = Tag::all();
-        return view('makepart',
-            compact('headTitle',
-                'tags'));
+        if (Auth::user()->count >= 3) {
+            $headTitle = 'Make Starwars Part';
+            $tags = Tag::all();
+            return view('makepart',
+                compact('headTitle',
+                    'tags'));
+        } else {
+            return redirect(route('starwars-part.index'));
+        }
+
+
     }
 
     public function store(Request $request)
@@ -61,7 +75,9 @@ class StarwarsPartController extends Controller
     public function destroy($id)
     {
         $starwarsPart = StarwarsPart::find($id);
-        $starwarsPart->delete();
+        if ($starwarsPart->user_id === Auth::id()) {
+            $starwarsPart->delete();
+        }
 
         return redirect(route('starwars-part.index'));
     }
@@ -93,6 +109,7 @@ class StarwarsPartController extends Controller
 
 
         $starwarsPart = StarwarsPart::find($id);
+
         $starwarsPart->update($request->all());
 
         $starwarsPart->tags()->sync($request->input('tags'));
@@ -102,6 +119,8 @@ class StarwarsPartController extends Controller
 
     public function show($id)
     {
+        $this->detailCount();
+
         $headTitle = 'Details';
         $starwarsPart = StarwarsPart::find($id);
 
@@ -111,9 +130,32 @@ class StarwarsPartController extends Controller
     }
 
 
+    public function detailCount()
+    {
+        $userId = Auth::id();
+        $user = User::find($userId);
+        $number = $user->count;
+        $newNumber = $number + 1;
+        $user->count = $newNumber;
+        $user->save();
+    }
 
+    public function enable(StarwarsPart $starwarsPart)
+    {
+        $currentState = $starwarsPart->show;
+        if ($currentState)
+        {
+            $newState = false;
+        } else
+        {
+            $newState = true;
+        }
 
+        $starwarsPart->show = $newState;
+        $starwarsPart->save();
 
+        return redirect(route('user.index'));
+    }
 }
 
 
