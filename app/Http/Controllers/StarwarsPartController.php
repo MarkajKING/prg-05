@@ -48,8 +48,6 @@ class StarwarsPartController extends Controller
         } else {
             return redirect(route('starwars-part.index'));
         }
-
-
     }
 
     public function store(Request $request)
@@ -117,12 +115,11 @@ class StarwarsPartController extends Controller
         return redirect(route('starwars-part.index'));
     }
 
-    public function show($id)
+    public function show(StarwarsPart $starwarsPart)
     {
         $this->detailCount();
 
         $headTitle = 'Details';
-        $starwarsPart = StarwarsPart::find($id);
 
         return view('starwarsPartDetails',
             compact('headTitle',

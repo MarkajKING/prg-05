@@ -71,6 +71,13 @@
                                     My Parts
                                 </a>
 
+                                @if(Auth::user()->is_admin)
+                                    <a class="dropdown-item" href="{{route('user.admin', Auth::user()->id)}}">
+                                        Admin
+                                    </a>
+                                @endif
+
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

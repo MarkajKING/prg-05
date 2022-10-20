@@ -17,10 +17,11 @@ class SearchController extends Controller
 
         $searchedItem = $request->input('part');
 
-        $starwarsParts = StarwarsPart::latest()->where('title', 'like', '%' . $searchedItem . '%')
-            ->orWhere('film', 'like', '%' . $searchedItem . '%')
-            ->orWhere('description', 'like', '%' . $searchedItem . '%')
-            ->orWhere('image', 'like', '%' . $searchedItem . '%')
+        $starwarsParts = StarwarsPart::where('show', '=', '1')
+            ->where('title', 'like', '%' . $searchedItem . '%')
+            ->where('film', 'like', '%' . $searchedItem . '%')
+            ->where('description', 'like', '%' . $searchedItem . '%')
+            ->where('image', 'like', '%' . $searchedItem . '%')
             ->get();
 
         return view('index', compact('starwarsParts', 'headTitle', 'tags', 'errorMessage'));
@@ -34,8 +35,10 @@ class SearchController extends Controller
 
 
         $starwarsParts = StarwarsPart::whereHas('tags', function ($q) use ($name) {
-            $q->where('name', '=', $name);
+            $q->where('name', '=', $name)
+                ->where('show', '=', '1');
         })->get();
+
 
 
         return view('index',

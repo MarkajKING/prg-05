@@ -45,8 +45,32 @@ class UserController extends Controller
         return redirect(route('user.show', $user->id));
     }
 
-    public function enable($id)
+
+    public function admin()
     {
-        dd($id);
+        $headTitle = 'User View';
+        if (Auth::user()->is_admin)
+        {
+            $users = User::all();
+            return view('usersView', compact('users', 'headTitle'));
+        }
     }
+
+    public function editAdmin(User $user)
+    {
+        $currentState = $user->is_admin;
+        if ($currentState)
+        {
+            $newState = false;
+        } else
+        {
+            $newState = true;
+        }
+
+        $user->is_admin = $newState;
+        $user->save();
+
+        return redirect(route('user.admin', $user->id));
+    }
+
 }
